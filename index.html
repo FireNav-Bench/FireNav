@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FireNav: decision-oriented reconstruction evidence routing for vision-language navigation in indoor fire environments.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FireNav: Indoor Fire Vision-Language Navigation">
+  <meta property="og:description" content="Paper, simulation demonstrations, FireVLN-Bench, and experimental results.">
+  <title>FireNav · Indoor Fire Vision-Language Navigation</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=f802cce8acf7">
+  <script src="script.js?v=e782c45d28f0" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="page-header" id="home">
+    <h1 class="paper-title">FireNav: Decision-Oriented Reconstruction Evidence Routing for Vision-Language Navigation in Indoor Fire Environments</h1>
+    <div class="paper-links">
+      <button class="button paper-unavailable" type="button" disabled title="Paper link coming soon" aria-label="Paper (coming soon)">Paper</button>
+      <a class="button button-outline" href="#overview">Video</a>
+    </div>
+    <nav aria-label="Page sections"><a href="#demos">Demos</a><a href="#method">Method</a><a href="#benchmark">Benchmark</a><a href="#results">Results</a></nav>
+  </header>
+  <main id="main" class="container">
+    <section id="overview" class="overview-section" aria-label="Overview video">
+      <p class="section-intro">In this paper, we present FireNav, a decision-oriented reconstruction evidence routing framework that aligns visual restoration with navigation utility in VLN.</p>
+      <figure class="video-card featured">
+        <video controls playsinline preload="none" poster="overview.jpg" width="1280" height="720" aria-label="FireNav overview video"><source src="overview.mp4" type="video/mp4">Your browser does not support video playback.</video>
+        <img class="print-poster" src="overview.jpg" alt="" width="1280" height="720">
+        <figcaption>FireNav overview · Simulation</figcaption>
+      </figure>
+    </section>
+    <section class="abstract-section" id="abstract">
+      <h2>Abstract</h2>
+      <p>In real-world indoor fire environments, visual degradation severely impairs instruction grounding, waypoint prediction, and long-horizon exploration in vision-language navigation (VLN). Although image restoration offers a natural means to mitigate such visual degradation, existing methods primarily optimize reconstruction fidelity, which does not necessarily translate into better navigation decisions and may even corrupt task-critical cues when applied indiscriminately. In this paper, we present FireNav, a decision-oriented reconstruction evidence routing framework that aligns visual restoration with navigation utility in VLN. To advance this task, we first contribute FireVLN-Bench, a paired indoor fire navigation benchmark with clean references preserving task semantics, safety supervision, and matched settings for continuous navigation and robot execution with simulated dynamics. Our FireNav retains native visual tokens and treats latent reconstruction features as auxiliary evidence, where a lightweight router leverages visual features, task context, and prior execution states to determine whether such evidence should be admitted and how strongly it should contribute to the visual tokens. To learn when reconstruction is beneficial, we further introduce decision utility calibration, which compares action prediction losses with and without candidate evidence under the same state, thereby supervising evidence selection according to its contribution to waypoint, heading, and arrival prediction. Experiments demonstrate that FireNav consistently outperforms state-of-the-art baselines in both navigation success and path efficiency across evaluation settings.</p>
+    </section>
+    <section id="demos">
+      <h2>Navigation under Visual Degradation</h2>
+      <p class="section-intro">Methods share task specifications, initial states, hazard layouts, degradation schedules, and episode manifests, but execute independent trajectories.</p>
+      <div class="media-controls"><label for="comparison-view">View</label><select id="comparison-view"><option value="multiview">Multi-view</option><option value="first_person">First person</option><option value="third_person">Third person</option><option value="topdown_occupancy">Route map</option></select><button class="small-button play-comparison" type="button">Play all</button></div>
+      <div class="comparison-grid" data-view="multiview">
+        <figure class="video-card"><h3>Native VLN</h3><video controls playsinline preload="none" data-method="native_vln" poster="native_vln-multiview.jpg" width="1440" height="800" aria-label="Native VLN comparison"><source src="native_vln-multiview.mp4" type="video/mp4"></video><img class="print-poster" src="native_vln-multiview.jpg" alt="" width="1440" height="800"></figure>
+        <figure class="video-card"><h3>Restored RGB</h3><video controls playsinline preload="none" data-method="restored_rgb" poster="restored_rgb-multiview.jpg" width="1440" height="800" aria-label="Restored RGB comparison"><source src="restored_rgb-multiview.mp4" type="video/mp4"></video><img class="print-poster" src="restored_rgb-multiview.jpg" alt="" width="1440" height="800"></figure>
+        <figure class="video-card"><h3 class="accent">FireNav</h3><video controls playsinline preload="none" data-method="firenav" poster="firenav-multiview.jpg" width="1440" height="800" aria-label="FireNav comparison"><source src="firenav-multiview.mp4" type="video/mp4"></video><img class="print-poster" src="firenav-multiview.jpg" alt="" width="1440" height="800"></figure>
+      </div>
+      <p class="caption">The methods follow independent trajectories; playback time does not indicate a matched navigation state.</p>
+      <h3 class="subsection-title">Long-Horizon Navigation</h3>
+      <p class="section-intro">The slow system selects a subgoal with multiscale evidence, and the fast system uses intermediate features for waypoint prediction.</p>
+      <div class="media-controls"><label for="long-view">View</label><select id="long-view"><option value="long-horizon">Multi-view</option><option value="long-horizon-first">First person</option><option value="long-horizon-third">Third person</option><option value="long-horizon-map">Route map</option></select></div>
+      <figure class="video-card long-video-frame"><video id="long-video" controls playsinline preload="none" poster="long-horizon.jpg" width="1440" height="800" aria-label="Long-horizon simulated navigation"><source src="long-horizon.mp4" type="video/mp4"></video><img class="print-poster" src="long-horizon.jpg" alt="" width="1440" height="800"></figure>
+      <div class="media-grid subgoal-grid">
+        <figure class="video-card"><video controls playsinline preload="none" poster="fire-subgoal.jpg" width="1440" height="800" aria-label="Fire-related subgoal"><source src="fire-subgoal.mp4" type="video/mp4"></video><img class="print-poster" src="fire-subgoal.jpg" alt="" width="1440" height="800"><figcaption>Fire-related subgoal</figcaption></figure>
+        <figure class="video-card"><video controls playsinline preload="none" poster="person-subgoal.jpg" width="1440" height="800" aria-label="Person-related subgoal"><source src="person-subgoal.mp4" type="video/mp4"></video><img class="print-poster" src="person-subgoal.jpg" alt="" width="1440" height="800"><figcaption>Person-related subgoal</figcaption></figure>
+      </div>
+    </section>
+    <section id="method">
+      <h2>Method</h2>
+      <p class="section-intro">A frozen native branch provides visual tokens, while a frozen reconstruction branch exposes mid-level features for fast execution and multiscale features for slow planning. FireNav aligns reconstruction features with native tokens, routes them according to the current decision state, and injects bounded residual evidence while preserving the native visual identity.</p>
+      <figure class="paper-figure"><a href="method.webp" target="_blank" rel="noopener" aria-label="Open FireNav method figure"><img src="method.webp" width="2600" height="1400" loading="eager" alt="FireNav: native visual tokens, reconstruction evidence, decision-conditioned routing, and bounded residual fusion"></a><figcaption>Overview of FireNav.</figcaption></figure>
+    </section>
+    <section id="benchmark">
+      <h2>FireVLN-Bench</h2>
+      <p class="section-intro">To study robust VLN in indoor fire environments, we construct FireVLN-Bench, a paired benchmark that evaluates the effects of visual degradation and reconstruction on perception and navigation in a closed loop. In Isaac Sim, matched settings cover diverse scenes, hazard layouts, and temporal degradations for continuous navigation and robot execution with simulated dynamics.</p>
+      <figure class="paper-figure"><a href="benchmark.webp" target="_blank" rel="noopener" aria-label="Open FireVLN-Bench figure"><img src="benchmark.webp" width="2600" height="1422" loading="eager" alt="FireVLN-Bench scene construction, paired observations, tasks, annotations, and dataset distribution"></a><figcaption>60 indoor scenes, 240 hazard configurations, and matched CE/PE evaluation tracks.</figcaption></figure>
+      <div class="media-grid benchmark-grid">
+        <figure class="video-card"><video controls playsinline preload="none" poster="benchmark-1.jpg" width="1280" height="720" aria-label="Benchmark scene one"><source src="benchmark-1.mp4" type="video/mp4"></video><img class="print-poster" src="benchmark-1.jpg" alt="" width="1280" height="720"><figcaption>Scene 1</figcaption></figure>
+        <figure class="video-card"><video controls playsinline preload="none" poster="benchmark-2.jpg" width="1280" height="720" aria-label="Benchmark scene two"><source src="benchmark-2.mp4" type="video/mp4"></video><img class="print-poster" src="benchmark-2.jpg" alt="" width="1280" height="720"><figcaption>Scene 2</figcaption></figure>
+        <figure class="video-card"><video controls playsinline preload="none" poster="benchmark-3.jpg" width="1280" height="720" aria-label="Benchmark scene three"><source src="benchmark-3.mp4" type="video/mp4"></video><img class="print-poster" src="benchmark-3.jpg" alt="" width="1280" height="720"><figcaption>Scene 3</figcaption></figure>
+        <figure class="video-card"><video controls playsinline preload="none" poster="benchmark-4.jpg" width="1280" height="720" aria-label="Benchmark scene four"><source src="benchmark-4.mp4" type="video/mp4"></video><img class="print-poster" src="benchmark-4.jpg" alt="" width="1280" height="720"><figcaption>Scene 4</figcaption></figure>
+      </div>
+    </section>
+    <section id="results">
+      <h2>Results</h2>
+      <p class="section-intro">FireNav has the best values in all eight columns among methods using degraded observations. Its SPL exceeds the strongest competing value by 4.2 points in PE and 5.4 points in CE. The clean reference is excluded from this ranking.</p>
+      <figure class="paper-figure results-figure"><a href="results-table.webp" target="_blank" rel="noopener" aria-label="Open full-resolution Table 1"><img src="results-table.webp" width="2400" height="1524" loading="eager" alt="Paper Table 1: all 13 methods, venues, and NE, OS, SR, SPL metrics in Physical and Continuous Environments, with original bold and underline rankings"></a><figcaption>Table 1 · <a href="results-table.webp" target="_blank" rel="noopener">View full size</a></figcaption></figure>
+      <figure class="paper-figure comparison-figure"><a href="comparison.webp" target="_blank" rel="noopener" aria-label="Open trajectory comparison figure"><img src="comparison.webp" width="2600" height="1562" loading="eager" alt="Waypoint predictions near a doorway, a fire source, and a person, with each method's full trajectory"></a><figcaption>Qualitative comparison of waypoint predictions and trajectories.</figcaption></figure>
+    </section>
+  </main>
+  <footer><p>FireNav · Design references: <a href="https://astra-amap.github.io/omninav.github.io/" target="_blank" rel="noopener">OmniNav</a> and <a href="https://internrobotics.github.io/internvla-n1.github.io/" target="_blank" rel="noopener">InternVLA-N1</a>.</p></footer>
+  <p class="status-message" role="status" aria-live="polite"></p>
+</body>
+</html>
