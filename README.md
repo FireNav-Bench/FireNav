@@ -15,7 +15,7 @@ The distribution keeps media next to `index.html`, with relative paths that work
 - Video playback and camera views: `script.js`
 - Figures: `benchmark.webp`, `method.webp`, `comparison.webp`, `results-table.webp`
 - Videos: H.264 MP4 files; poster images share their names with a `.jpg` extension.
-- Browser icon: supplied flame/eye logo, white background, PNG sizes and a multi-resolution ICO. `favicon-master-4096.png` is a 4096x4096 export from the high-resolution image cleanup.
+- Browser icon: supplied flame/eye logo, true RGBA transparency, PNG sizes and a multi-resolution ICO. `favicon-master-4096.png` is a 4096x4096 export from the high-resolution image cleanup.
 
 ## Content provenance
 
