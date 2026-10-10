@@ -18,7 +18,7 @@ The distribution keeps media next to `index.html`, with relative paths that work
 
 ## Content provenance
 
-The abstract is copied verbatim from the supplied manuscript source. Short section introductions are verbatim excerpts.
+The abstract is copied verbatim from the supplied manuscript source. Sections use headings and media without introductory paragraphs.
 `results-table.webp` is a lossless 6x render of the complete Table 1 from page 7 of the supplied PDF, including its original caption, all 13 methods, venues, eight metrics, and ranking styles.
 The Paper button is disabled pending a public paper link. The supplied manuscript PDF is excluded from the public distribution.
 The website does not provide a LaTeX source download.
@@ -29,7 +29,7 @@ Browser encodings preserve duration, use 20 fps, H.264/yuv420p, and fast-start M
 The overview retains its original editorial speed and captions.
 Comparison videos execute independent trajectories; playback time is not a matched-state comparison.
 
-Authors and affiliations are omitted because the supplied PDF identifies anonymous authors.
+The four authors and two affiliations follow author information supplied by the user from OpenReview submission ST0MOFcOcK. Names, order and affiliation superscripts are preserved; author and institution links use the supplied destinations.
 No arXiv identifier, model URL, navigation code repository, or dataset release URL is invented.
 
 ## Design references
@@ -38,7 +38,7 @@ No arXiv identifier, model URL, navigation code repository, or dataset release U
 - https://internrobotics.github.io/internvla-n1.github.io/
 - https://amap-cvlab.github.io/ABot-Navigation/ABot-N1/
 
-Layout and implementation are original. The page uses a bold full paper title, white backgrounds, locally hosted Inter typography, original manuscript text, and native video controls.
+Layout and implementation are original. The page uses a bold full paper title, white backgrounds, locally hosted Inter typography, the original abstract, and native video controls.
 The main content uses 92% of the available window width. Media scale with that width, without viewport-height caps; grids reflow at 800px and 600px. Full-resolution figures open from their links.
 The font license is included as `inter-OFL.txt`.
 Responsive media preserve their full frames. Print styles keep figure and video-poster groups together on pages.
