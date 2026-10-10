@@ -28,6 +28,8 @@ The website does not independently validate experiment provenance.
 All demonstrations come from the supplied Demo directory and depict simulation.
 Browser encodings preserve duration, use 20 fps, H.264/yuv420p, and fast-start MP4.
 The overview retains its original editorial speed and captions.
+Eight demonstration videos automatically loop, muted, while visible. The three selectable comparison videos remain manual.
+Automatic videos pause offscreen or in hidden tabs; native controls remain available.
 Comparison videos execute independent trajectories; playback time is not a matched-state comparison.
 
 The four authors and two affiliations follow author information supplied by the user from OpenReview submission ST0MOFcOcK. Names, order and affiliation superscripts are preserved; author and institution links use the supplied destinations.

@@ -4,6 +4,27 @@ const playButton = document.querySelector(".play-comparison");
 const statusMessage = document.querySelector(".status-message");
 let statusTimer;
 let playbackEpoch = 0;
+const automaticVideos = [...document.querySelectorAll("video[data-auto-loop]")];
+const automaticState = new WeakMap();
+automaticVideos.forEach(video => {
+  video.muted = true;
+  video.loop = true;
+  automaticState.set(video, { visible: false, userPaused: false, internalPause: false });
+});
+function pauseAutomaticVideo(video) {
+  if (!video.paused) {
+    automaticState.get(video).internalPause = true;
+    video.pause();
+  }
+}
+function updateAutomaticVideo(video) {
+  const state = automaticState.get(video);
+  if (!state.visible || document.hidden) {
+    pauseAutomaticVideo(video);
+  } else if (!state.userPaused && video.paused) {
+    video.play().catch(() => {});
+  }
+}
 function notify(message) {
   clearTimeout(statusTimer);
   statusMessage.textContent = message;
@@ -11,7 +32,9 @@ function notify(message) {
   statusTimer = setTimeout(() => statusMessage.classList.remove("visible"), 5000);
 }
 function setVideo(video, name, dimensions) {
-  video.pause();
+  const automatic = automaticState.get(video);
+  if (automatic) pauseAutomaticVideo(video);
+  else video.pause();
   video.setAttribute("width", dimensions[0]);
   video.setAttribute("height", dimensions[1]);
   video.querySelector("source").src = `${name}.mp4`;
@@ -23,6 +46,10 @@ function setVideo(video, name, dimensions) {
     printPoster.height = dimensions[1];
   }
   video.load();
+  if (automatic) {
+    automatic.userPaused = false;
+    updateAutomaticVideo(video);
+  }
 }
 function updatePlayButton() {
   playButton.textContent = comparisons.some(v => !v.paused && !v.ended) ? "Pause all" : "Play all";
@@ -59,3 +86,33 @@ document.querySelector("#long-view").addEventListener("change", e => {
 document.querySelectorAll("video").forEach(video => {
   video.addEventListener("error", () => notify("The video could not load. Please check your connection and try again."));
 });
+automaticVideos.forEach(video => {
+  const state = automaticState.get(video);
+  video.addEventListener("play", () => {
+    state.internalPause = false;
+    state.userPaused = false;
+  });
+  video.addEventListener("pause", () => {
+    if (state.internalPause) {
+      state.internalPause = false;
+    } else if (video.paused && state.visible && !document.hidden) {
+      state.userPaused = true;
+    }
+  });
+});
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      automaticState.get(video).visible = entry.isIntersecting && entry.intersectionRatio >= 0.1;
+      updateAutomaticVideo(video);
+    });
+  }, { threshold: [0, 0.1] });
+  automaticVideos.forEach(video => observer.observe(video));
+} else {
+  automaticVideos.forEach(video => {
+    automaticState.get(video).visible = true;
+    updateAutomaticVideo(video);
+  });
+}
+document.addEventListener("visibilitychange", () => automaticVideos.forEach(updateAutomaticVideo));
